@@ -38,6 +38,11 @@ class UnstableMatchingInput {
         catch ( FileNotFoundException e){ System.out.println(_inputFileName +  "Not found!"); }
     }
 
+    public void breakUpAll (){
+        men.forEach((m) -> m.breakUp());
+        women.forEach((f) -> f.breakUp());
+    }
+
 
     public ArrayList<Male> getMen() {
         return men;
