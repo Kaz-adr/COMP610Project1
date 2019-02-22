@@ -9,6 +9,8 @@ public class Main {
     public static void main(String[] args) {
         UnstableMatchingInput input = new UnstableMatchingInput("src\\input2.txt");
         System.out.println(input);
+
+        //unstable solutions
         System.out.println(howManyMenGetFirstChoice(input));
         System.out.println(howManyWomenGetFirstChoice(input));
 
@@ -42,6 +44,16 @@ public class Main {
         }
         input.breakUpAll();
         return luckyWomen;
+    }
+
+    public static void runGaleShapleyOnMen (UnstableMatchingInput input){
+        input.breakUpAll();
+         Male manToPropose = input.nextFreeMan();
+         Female womanToBeProposed;
+        while (manToPropose != null){
+            //...
+            manToPropose = input.nextFreeMan();
+        }
     }
 
     public static int howManyPeopleGetFirstChoice(UnstableMatchingInput input){

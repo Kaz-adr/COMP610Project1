@@ -34,13 +34,43 @@ class UnstableMatchingInput {
                 }
                 women.add(new Female(i + 1, preference));
             }
+            //order Preference List
+            orderFemaleList();
+            orderMaleList();
         }
         catch ( FileNotFoundException e){ System.out.println(_inputFileName +  "Not found!"); }
+    }
+
+    private void orderMaleList(){
+        for (Male man: men){
+            for (int i: man.get_preferred()){
+                //AAAAAAAAAAAAAAAAAAAA
+            }
+        }
+    }
+
+    private  void orderFemaleList(){
+
     }
 
     public void breakUpAll (){
         men.forEach((m) -> m.breakUp());
         women.forEach((f) -> f.breakUp());
+    }
+
+    //returns single man from top of list, if none exist return null
+    public Male nextFreeMan(){
+        for (Male man : men){
+            if (!man.isTaken()) return man;
+        }
+        return null;
+    }
+
+    public Female nextFreeWoman(){
+        for (Female woman : women){
+            if (!woman.isTaken()) return woman;
+        }
+        return null;
     }
 
 
