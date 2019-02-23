@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 class UnstableMatchingInput {
@@ -41,16 +42,23 @@ class UnstableMatchingInput {
         catch ( FileNotFoundException e){ System.out.println(_inputFileName +  "Not found!"); }
     }
 
+    //not tested on fringe cases
     private void orderMaleList(){
         for (Male man: men){
-            for (int i: man.get_preferred()){
-                //AAAAAAAAAAAAAAAAAAAA
+            for (int i = 0; i < women.size(); i++){
+                man.orderedFemaleList.add(man.get_preferred()[i] - 1, women.get(i));
             }
+            man.orderedFemaleList.removeAll(Collections.singleton(null));
         }
     }
 
     private  void orderFemaleList(){
-
+        for (Female woman: women){
+            for (int i = 0; i < men.size(); i++){
+                woman.orderedMaleList.add(woman.get_preferred()[i] - 1, men.get(i));
+            }
+            woman.orderedMaleList.removeAll(Collections.singleton(null));
+        }
     }
 
     public void breakUpAll (){
@@ -73,6 +81,22 @@ class UnstableMatchingInput {
         return null;
     }
 
+    public int menWithFirstChoice(){
+        int luckyMen = 0;
+        for (Male man: men){
+            if (man.getPartner() == man.orderedFemaleList.get(0)) luckyMen++;
+        }
+        return luckyMen;
+    }
+
+    public int womenWithFirstChoice(){
+        int luckyWomen = 0;
+        for (Female woman: women){
+            if (woman.getPartner() == woman.orderedMaleList.get(0)) luckyWomen++;
+        }
+        return luckyWomen;
+    }
+
 
     public ArrayList<Male> getMen() {
         return men;
@@ -88,6 +112,14 @@ class UnstableMatchingInput {
 
     public void setWomen(ArrayList<Female> women) {
         this.women = women;
+    }
+
+    public String printCouples(){
+        String outputString = "";
+        for (Male man: men){
+            outputString += "couple(Man#" + man.get_numId() + ", Woman#" + man.getPartner().get_numId() + ")\n";
+        }
+        return outputString;
     }
 
     @Override
